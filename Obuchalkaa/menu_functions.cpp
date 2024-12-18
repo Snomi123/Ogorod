@@ -13,7 +13,7 @@ void Shkola::show_menu(const MenuItem* current){
     
 }
 
-void Shkola::exit(){
+void Shkola::exit(const MenuItem* current){
     std::exit(0);
 }
 
