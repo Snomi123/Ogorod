@@ -1,11 +1,16 @@
 #pragma once
 
-namespace Shkola{
-    void exit();
-    void study();
+#include "menu.hpp"
 
-    void study_summ();
-    void study_go_back();
-    void study_substract();
-    void study_multiply();
+namespace Shkola{
+    void show_menu(const MenuItem* current);
+
+
+    void exit(const MenuItem* current);
+
+
+    void study_summ(const MenuItem* current);
+    void study_substract(const MenuItem* current);
+    void study_multiply(const MenuItem* current);
+    void study_go_back(const MenuItem* current);
 }
