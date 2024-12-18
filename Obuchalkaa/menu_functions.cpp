@@ -9,3 +9,16 @@ void Shkola::exit(){
 void Shkola::study(){
     
 }
+
+void Shkola::study_summ(){
+    
+}
+void Shkola::study_go_back(){
+    
+}
+void Shkola::study_substract(){
+    
+}
+void Shkola::study_multiply(){
+    
+}
