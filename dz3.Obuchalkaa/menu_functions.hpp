@@ -11,15 +11,10 @@ namespace Shkola{
     const MenuItem* study_substract(const MenuItem* current);
     const MenuItem* study_multiply(const MenuItem* current);
     const MenuItem* study_divide(const MenuItem* current);
-    const MenuItem* study_go_back(const MenuItem* current);
+    const MenuItem* go_back(const MenuItem* current);
 
     const MenuItem* study_mathematics(const MenuItem* current);
     const MenuItem* study_russian_language(const MenuItem* current);
     const MenuItem* study_russian_literature(const MenuItem* current);
     const MenuItem* study_physical_education(const MenuItem* current);
-
-    const MenuItem* first_grade_go_back(const MenuItem* current);
-    const MenuItem* first_grade_subjects(const MenuItem* current);
-    
-
 }

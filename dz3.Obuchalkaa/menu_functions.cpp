@@ -5,7 +5,7 @@
 
 const Shkola::MenuItem* Shkola::show_menu(const MenuItem* current){
     std::cout << "Обучайка приветствует тебя, мой юный ученик!" << std::endl;
-    for (int i = 1; i < current->children_count; i++){
+    for (int i = 1; i < current->children_count; ++i){
         std::cout << current->children[i]->title << std::endl;
     }
     std::cout << current->children[0]->title << std::endl;
@@ -28,19 +28,8 @@ const Shkola::MenuItem* Shkola::exit(const MenuItem* current){
     std::exit(0);
 }
 
-
-const Shkola::MenuItem* Shkola::study_summ(const MenuItem* current){
-    // TODO
-    std::cout << current->title << std::endl << std::endl;
-    return current->parent;
-}
 const Shkola::MenuItem* Shkola::study_divide(const MenuItem* current) {
     //TODO
-    std::cout << current->title << std::endl << std::endl;
-    return current->parent;
-}
-const Shkola::MenuItem* Shkola::study_go_back(const MenuItem* current){
-    // TODO
     std::cout << current->title << std::endl << std::endl;
     return current->parent;
 }
@@ -70,10 +59,7 @@ const Shkola::MenuItem* Shkola::study_multiply(const MenuItem* current){
     std::cout << current->title << std::endl << std::endl;
     return current->parent;
 }
-const Shkola::MenuItem* Shkola::first_grade_go_back(const MenuItem* current){
-    return current->parent;
+const Shkola::MenuItem* Shkola::go_back(const MenuItem* current){
+    return current->parent->parent;
 }
-const Shkola::MenuItem* Shkola::first_grade_subjects(const MenuItem* current) {
-    std::cout << "Выберите предмет для изучения в 1-ом классе:" << std::endl;
-    return current->parent;
-}
+
