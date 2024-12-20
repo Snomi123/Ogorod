@@ -1,7 +1,7 @@
 #include "sort.hpp"
+#include <iostream>
 
-
-void sortings::merge_sort(std::vector<int>& A, int p, int r){
+void mik::merge_sort(std::vector<int>& A, int p, int r){
     if (p<r){
         int q = (p + r) / 2;
         merge_sort(A, p, q);
@@ -10,7 +10,7 @@ void sortings::merge_sort(std::vector<int>& A, int p, int r){
     }
 }
 
-void sortings::merge(std::vector<int>& A, int p, int q, int r){
+void mik::merge(std::vector<int>& A, int p, int q, int r){
     int n1 = q - p + 1;
     int n2 = r - q;
     std::vector<int> sub_array1(begin(A)+p, begin(A)+p+n1);
@@ -29,7 +29,7 @@ void sortings::merge(std::vector<int>& A, int p, int q, int r){
     }
 }
 
-void sortings::insertion_sort(std::vector<int> &array_to_sort, int begin, int end){
+void mik::insertion_sort(std::vector<int> &array_to_sort, int begin, int end){
     for (int i = begin+1; i <= end; i++){
         int j = i;
         int temp = array_to_sort[i];
@@ -41,7 +41,7 @@ void sortings::insertion_sort(std::vector<int> &array_to_sort, int begin, int en
     }
 }
 
-void sortings::merge_sort_insertionMOD(std::vector<int>& A, int p, int r, int m){
+void mik::merge_sort_insertionMOD(std::vector<int>& A, int p, int r, int m){
     if (p<r && r-p > m){
         int q = (p + r) / 2;
         merge_sort_insertionMOD(A, p, q, m);
@@ -53,7 +53,7 @@ void sortings::merge_sort_insertionMOD(std::vector<int>& A, int p, int r, int m)
     }
 }
 
-void sortings::bubble_sort(int* const arr, const int size) {
+void mik::bubble_sort(int* const arr, const int size) {
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
@@ -64,3 +64,13 @@ void sortings::bubble_sort(int* const arr, const int size) {
         }
     }
 }
+
+void mik::print_array(const char* const comment, int* arr, const int size) {
+    const char format = ' ';
+    std::cout << comment;
+    for (int i = 0; i < size; i++) {
+        std::cout << format << arr[i];
+    }
+    std::cout << std::endl;
+}
+
