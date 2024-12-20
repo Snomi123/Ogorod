@@ -49,6 +49,22 @@ const Shkola::MenuItem* Shkola::study_substract(const MenuItem* current){
     std::cout << current->title << std::endl << std::endl;
     return current->parent;
 }
+
+
+const Shkola::MenuItem* Shkola::study_mathematics(const MenuItem* current){
+    return current->parent;
+}
+const Shkola::MenuItem* Shkola::study_russian_language(const MenuItem* current){
+    return current->parent;
+}
+const Shkola::MenuItem* Shkola::study_russian_literature(const MenuItem* current){
+    return current->parent;
+}
+const Shkola::MenuItem* Shkola::study_physical_education(const MenuItem* current){
+    return current->parent;
+}
+
+
 const Shkola::MenuItem* Shkola::study_multiply(const MenuItem* current){
     // TODO
     std::cout << current->title << std::endl << std::endl;

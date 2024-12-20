@@ -17,16 +17,16 @@ const Shkola::MenuItem Shkola::STUDY_DIVIDE = {
 };
 const Shkola::MenuItem Shkola::STUDY_GO_BACK = {
   "0 - главное меню", Shkola::study_go_back, &Shkola::STUDY
-};
+};№3№
 
 namespace {
   const Shkola::MenuItem* const study_children[] = {
-    &Shkola::STUDY_GO_BACK,
+    &Shkola::FIRST_GRADE,
     &Shkola::STUDY_SUMM,
     &Shkola::STUDY_SUBSTRACT,
     &Shkola::STUDY_MULTIPLY,
     &Shkola::STUDY_DIVIDE,
-    &Shkola::FIRST_GRADE
+    &Shkola::STUDY_GO_BACK
   };
   const int study_size = sizeof(study_children) / sizeof(study_children[0]);
 }
@@ -78,11 +78,12 @@ const Shkola::MenuItem Shkola::FIRST_GRADE_GO_BACK = {
 
 namespace {
   const Shkola::MenuItem* const first_grade_children[] = {
-    &Shkola::FIRST_GRADE_GO_BACK,
+    
     &Shkola::RUSSIAN_LANGUAGE,
     &Shkola::RUSSIAN_LITERATURE,
     &Shkola::MATHEMATICS,
-    &Shkola::PHYSICAL_EDUCATION
+    &Shkola::PHYSICAL_EDUCATION,
+    &Shkola::FIRST_GRADE_GO_BACK
   };
   const int first_grade_size = sizeof(first_grade_children) / sizeof(first_grade_children[0]);
 }
