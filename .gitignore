@@ -5,6 +5,7 @@
 build_*/
 lib/
 
+.DS_Store
 *.exe
 *.ii
 *.s
