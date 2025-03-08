@@ -15,4 +15,5 @@ cd "$BUILD_FOLDER"
 cmake -G "$BUILD_TYPE" ../"$SOURCE_FOLDER"
 cmake --build .
 
-cp ../"$SOURCE_FOLDER"/dz2.sort/run_merge_sort.sh ./dz2.sort
+cp ../"$SOURCE_FOLDER"/dz2.sort/src/main.cpp ./dz2.sort
+

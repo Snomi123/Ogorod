@@ -1,11 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+project(test)
 
-project(dz2.sort)
+add_library(merge_sort_lib "")
 
-add_library(${PROJECT_NAME} sort.cpp)
-
-add_executable(MP main.cpp)
-
-target_link_libraries(MP dz2.sort)
-
-target_include_directories(MP PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+add_subdirectory(src)
+add_subdirectory(test)

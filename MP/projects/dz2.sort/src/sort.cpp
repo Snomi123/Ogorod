@@ -53,7 +53,8 @@ void mik::merge_sort_insertionMOD(std::vector<int>& A, int p, int r, int m){
     }
 }
 
-void mik::bubble_sort(int* const arr, const int size) {
+void mik::bubble_sort(std::vector<int>& arr) {
+    int size = arr.size();
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
