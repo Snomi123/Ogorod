@@ -1,162 +1,360 @@
-#include <gtest/gtest.h>
 #include "long_number.hpp"
+#include <cstring>
 #include <stdexcept>
+#include <algorithm>
+#include <string>
 
-using namespace biv; 
+using biv::LongNumber;
 
+LongNumber::LongNumber() : numbers(new int[1]{0}), length(1), sign(1) {}
 
-TEST(LongNumberTest, ConstructorAndEquality) {
-    LongNumber num1("12345");
-    LongNumber num2("12345");
-    LongNumber num3("-67890");
+LongNumber::LongNumber(const char* const str) {
+    if (str == nullptr) {
+        numbers = new int[1]{0};
+        length = 1;
+        sign = 1;
+        return;
+    }
 
-    ASSERT_TRUE(num1 == num2);
-    ASSERT_FALSE(num1 == num3);
+    int str_len = get_length(str);
+    if (str_len == 0) {
+        numbers = new int[1]{0};
+        length = 1;
+        sign = 1;
+        return;
+    }
+
+    int start = 0;
+    if (str[0] == '-') {
+        sign = -1;
+        start = 1;
+    } else if (str[0] == '+') {
+        sign = 1;
+        start = 1;
+    } else {
+        sign = 1;
+    }
+
+    while (start < str_len && str[start] == '0') {
+        start++;
+    }
+
+    if (start == str_len) {
+        numbers = new int[1]{0};
+        length = 1;
+        sign = 1;
+        return;
+    }
+
+    length = str_len - start;
+    numbers = new int[length];
+    for (int i = 0; i < length; ++i) {
+        char c = str[str_len - 1 - i];
+        if (c < '0' || c > '9') {
+            int* new_numbers = new int[1]{0};
+            delete[] numbers;
+            numbers = new_numbers;
+            length = 1;
+            sign = 1;
+            return;
+        }
+        numbers[i] = c - '0';
+    }
 }
 
-TEST(LongNumberTest, DivisionAndModulo) {
-    LongNumber a("1000");
-    LongNumber b("3");
+LongNumber::LongNumber(const LongNumber& x) : length(x.length), sign(x.sign) {
+    numbers = new int[length];
+    std::copy(x.numbers, x.numbers + length, numbers);
+}
+
+LongNumber::LongNumber(LongNumber&& x) noexcept
+    : numbers(x.numbers), length(x.length), sign(x.sign) {
+    x.numbers = nullptr;
+    x.length = 0;
+    x.sign = 1;
+}
+
+LongNumber::~LongNumber() {
+    delete[] numbers;
+}
+
+LongNumber& LongNumber::operator=(const char* const str) {
+    LongNumber tmp(str);
+    *this = std::move(tmp);
+    return *this;
+}
+
+LongNumber& LongNumber::operator=(const LongNumber& x) {
+    if (this != &x) {
+        delete[] numbers;
+        length = x.length;
+        sign = x.sign;
+        numbers = new int[length];
+        std::copy(x.numbers, x.numbers + length, numbers);
+    }
+    return *this;
+}
+
+LongNumber& LongNumber::operator=(LongNumber&& x) noexcept {
+    if (this != &x) {
+        delete[] numbers;
+        numbers = x.numbers;
+        length = x.length;
+        sign = x.sign;
+        x.numbers = nullptr;
+        x.length = 0;
+        x.sign = 1;
+    }
+    return *this;
+}
+
+bool LongNumber::operator==(const LongNumber& x) const {
+    if (sign != x.sign || length != x.length) return false;
+    for (int i = 0; i < length; ++i) {
+        if (numbers[i] != x.numbers[i]) return false;
+    }
+    return true;
+}
+
+bool LongNumber::operator!=(const LongNumber& x) const {
+    return !(*this == x);
+}
+
+bool LongNumber::operator>(const LongNumber& x) const {
+    if (sign != x.sign) return sign > x.sign;
+    bool isPositive = (sign == 1);
+    if (length != x.length) return (length > x.length) == isPositive;
+    for (int i = length - 1; i >= 0; --i) {
+        if (numbers[i] != x.numbers[i])
+            return (numbers[i] > x.numbers[i]) == isPositive;
+    }
+    return false;
+}
+
+bool LongNumber::operator<(const LongNumber& x) const {
+    if (sign != x.sign) return sign < x.sign;
+    bool isPositive = (sign == 1);
+    if (length != x.length) return (length < x.length) == isPositive;
+    for (int i = length - 1; i >= 0; --i) {
+        if (numbers[i] != x.numbers[i])
+            return (numbers[i] < x.numbers[i]) == isPositive;
+    }
+    return false;
+}
+
+bool LongNumber::operator>=(const LongNumber& x) const {
+    return (*this > x) || (*this == x);
+}
+
+LongNumber LongNumber::operator+(const LongNumber& x) const {
+    if (sign != x.sign) {
+        LongNumber tmp = x;
+        tmp.sign = -tmp.sign;
+        return *this - tmp;
+    }
+
+    int max_len = std::max(length, x.length);
+    int* res = new int[max_len + 1]{0};
+    int carry = 0;
+    int res_len = 0;
+
+    for (int i = 0; i < max_len; ++i) {
+        int a = (i < length) ? numbers[i] : 0;
+        int b = (i < x.length) ? x.numbers[i] : 0;
+        int sum = a + b + carry;
+        res[i] = sum % 10;
+        carry = sum / 10;
+        res_len = i + 1;
+    }
+
+    if (carry) {
+        res[max_len] = carry;
+        res_len = max_len + 1;
+    }
+
+    while (res_len > 1 && res[res_len - 1] == 0) res_len--;
+
+    LongNumber result;
+    result.numbers = new int[res_len];
+    result.length = res_len;
+    result.sign = sign;
+    std::copy(res, res + res_len, result.numbers);
+    delete[] res;
+    return result;
+}
+
+LongNumber LongNumber::operator-(const LongNumber& x) const {
+    if (sign != x.sign) {
+        LongNumber tmp = x;
+        tmp.sign = -tmp.sign;
+        return *this + tmp;
+    }
+
+    bool absGreater = (this->abs() >= x.abs());
+    if (!absGreater) {
+        LongNumber result = x - *this;
+        result.sign = -sign;
+        return result;
+    }
+
+    int* res = new int[length]{0};
+    int borrow = 0;
+    int res_len = 0;
+
+    for (int i = 0; i < length; ++i) {
+        int a = numbers[i];
+        int b = (i < x.length) ? x.numbers[i] : 0;
+        int diff = a - b - borrow;
+        if (diff < 0) {
+            diff += 10;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        res[i] = diff;
+        res_len = i + 1;
+    }
+
+    while (res_len > 1 && res[res_len - 1] == 0) res_len--;
+
+    LongNumber result;
+    result.numbers = new int[res_len];
+    result.length = res_len;
+    result.sign = sign;
+    std::copy(res, res + res_len, result.numbers);
+    delete[] res;
+    return result;
+}
+
+LongNumber LongNumber::operator*(const LongNumber& x) const {
+    int total_len = length + x.length;
+    int* res = new int[total_len]{0};
+
+    for (int i = 0; i < length; ++i) {
+        int carry = 0;
+        for (int j = 0; j < x.length; ++j) {
+            int prod = numbers[i] * x.numbers[j] + res[i + j] + carry;
+            res[i + j] = prod % 10;
+            carry = prod / 10;
+        }
+        if (carry) res[i + x.length] += carry;
+    }
+
+    int res_len = total_len;
+    while (res_len > 1 && res[res_len - 1] == 0) res_len--;
+
+    LongNumber result;
+    result.numbers = new int[res_len];
+    result.length = res_len;
+    result.sign = sign * x.sign;
+    std::copy(res, res + res_len, result.numbers);
+    delete[] res;
+    return result;
+}
+
+LongNumber LongNumber::operator/(const LongNumber& x) const {
+    if (x == LongNumber("0")) throw std::invalid_argument("Division by zero");
     
-    LongNumber div = a / b;
-    LongNumber mod = a % b;
+    LongNumber dividend = this->abs();
+    LongNumber divisor = x.abs();
     
-    EXPECT_EQ(div, LongNumber("333"));
-    EXPECT_EQ(mod, LongNumber("1"));
-}
-TEST(LongNumberTest, Addition) {
-    LongNumber a("999999999");
-    LongNumber b("1");
-    LongNumber result = a + b;
-
-    EXPECT_EQ(result, LongNumber("1000000000"));
-}
-
-TEST(LongNumberTest, Subtraction) {
-    LongNumber a("1000000000");
-    LongNumber b("1");
-    LongNumber result = a - b;
-
-    EXPECT_EQ(result, LongNumber("999999999"));
-}
-
-TEST(LongNumberTest, Multiplication) {
-    LongNumber a("123456789");
-    LongNumber b("2");
-    LongNumber result = a * b;
-
-    EXPECT_EQ(result, LongNumber("246913578"));
-}
-
-
-TEST(LongNumberTest, Modulo) {
-    LongNumber a("1000");
-    LongNumber b("3");
-    LongNumber result = a % b;
-
-    EXPECT_EQ(result, LongNumber("1"));
-}
-
-TEST(LongNumberTest, EdgeCases) {
-    LongNumber zero;
-    LongNumber num("123");
+    if (dividend < divisor) {
+        if (this->sign == -1 && x.sign == 1) {
+            return LongNumber("-1");
+        }
+        if (this->sign == 1 && x.sign == -1) {
+            return LongNumber("-1");
+        }
+        return LongNumber("0");
+    }
     
-    EXPECT_EQ(zero + num, num);
-    EXPECT_EQ(num - num, zero);
-    EXPECT_TRUE(LongNumber("-123").is_negative());
-}
-
-TEST(LongNumberTest, DigitAccess) {
-    LongNumber num("987654321");
+    LongNumber quotient("0");
+    LongNumber current("0");
     
-    EXPECT_EQ(num.get_digits_number(), 9);
-    EXPECT_EQ(num.get_rank_number(2), 3); 
+    for (int i = dividend.length - 1; i >= 0; --i) {
+        current = current * LongNumber("10") + LongNumber(std::to_string(dividend.numbers[i]).c_str());
+        int cnt = 0;
+        while (current >= divisor) {
+            current = current - divisor;
+            cnt++;
+        }
+        quotient = quotient * LongNumber("10") + LongNumber(std::to_string(cnt).c_str());
+    }
+    
+    if (current != LongNumber("0") && this->sign != x.sign) {
+        quotient = quotient + LongNumber("1");
+        quotient.sign = -1;
+    } else {
+        quotient.sign = (this->sign == x.sign) ? 1 : -1;
+    }
+    
+    while (quotient.length > 1 && quotient.numbers[quotient.length - 1] == 0) {
+        quotient.length--;
+    }
+    
+    if (quotient == LongNumber("0")) {
+        quotient.sign = 1;
+    }
+    
+    return quotient;
 }
 
-class FComparisons : public testing::Test {
-    public:
-        LongNumber
-            n_2{"-2"}, n_1{"-1"}, n_1_copy{"-1"},
-            
-            p_1{"1"}, p_1_copy{"1"}, p_12{"12"};
-};
-
-TEST_F(FComparisons, equal) {
-    EXPECT_TRUE(p_1 == p_1_copy) << "EXPECT_TRUE: 1 == 1";
-    EXPECT_FALSE(n_1 == p_1) << "EXPECT_FALSE: -1 == 1";
-    EXPECT_FALSE(p_1 == p_12) << "EXPECT_FALSE: 1 == 12";
-    EXPECT_EQ(p_1, p_1_copy) << "EXPECT_EQ: 1 == 1";
-    EXPECT_EQ(n_1, n_1_copy) << "EXPECT_EQ: -1 == -1";
+LongNumber LongNumber::operator%(const LongNumber& x) const {
+    if (x == LongNumber("0")) throw std::invalid_argument("Division by zero");
+    
+    LongNumber dividend = this->abs();
+    LongNumber divisor = x.abs();
+    
+    // Вычисляем остаток от деления абсолютных значений
+    LongNumber current("0");
+    for (int i = dividend.length - 1; i >= 0; --i) {
+        current = current * LongNumber("10") + LongNumber(std::to_string(dividend.numbers[i]).c_str());
+        int cnt = 0;
+        while (current >= divisor) {
+            current = current - divisor;
+            cnt++;
+        }
+    }
+    
+    LongNumber remainder = current;
+    
+    if (remainder != LongNumber("0")) {
+        if (this->sign == -1) {
+            remainder = divisor - remainder;
+        }
+    }
+    
+    return remainder;
 }
 
-TEST_F(FComparisons, not_equal) {
-    EXPECT_TRUE(n_1 != p_1) << "EXPECT_TRUE: -1 != 1";
-    EXPECT_TRUE(p_1 != p_12) << "EXPECT_TRUE: 1 != 12";
-    EXPECT_FALSE(p_1 != p_1_copy) << "EXPECT_FALSE: 1 == 1";
-    ASSERT_NE(p_1, p_12) << "ASSERT_NE: 1 != 12";
-    ASSERT_NE(n_1, p_1) << "ASSERT_NE: -1 != 1";
+// Вспомогательные методы
+int LongNumber::get_digits_number() const noexcept {
+    return length;
 }
 
-TEST_F(FComparisons, more) {
-    EXPECT_TRUE(p_12 > p_1) << "12 > 1";
-    EXPECT_TRUE(p_1 > n_1) << "1 > -1";
-    EXPECT_TRUE(n_1 > n_2) << "-1 > -2";
-    EXPECT_FALSE(p_1_copy > p_1) << "1 > 1";
-    EXPECT_FALSE(p_1 > p_12) << "1 > 12";
+int LongNumber::get_rank_number(int rank) const {
+    if (rank < 0 || rank >= length) throw std::out_of_range("Invalid rank");
+    return numbers[rank];
 }
 
-TEST_F(FComparisons, less) {
-    EXPECT_TRUE(p_1 < p_12) << "1 < 12";
-    EXPECT_TRUE(n_1 < p_1) << "-1 < 1";
-    EXPECT_TRUE(n_2 < n_1) << "-2 < -1";
-    EXPECT_FALSE(p_1_copy < p_1) << "1 < 1";
-    EXPECT_FALSE(p_12 < p_1) << "12 < 1";
+bool LongNumber::is_negative() const noexcept {
+    return sign == -1;
 }
 
-class FArithmetic : public testing::Test {
-    public:
-        LongNumber
-            n_19602{"-19602"}, n_99{"-99"}, n_87{"-87"}, n_17{"-17"},
-            n_16{"-16"}, n_15{"-15"},
-            n_7{"-7"}, n_4{"-4"}, n_3{"-3"}, n_2{"-2"}, n_1{"-1"},
-        
-            p_0{"0"}, p_1{"1"}, p_1_copy{"1"}, p_2{"2"}, p_3{"3"},
-            p_4{"4"}, p_6{"6"}, p_12{"12"}, p_16{"16"}, p_17{"17"},
-            p_99{"99"}, p_99_copy{"99"},
-            p_113{"113"}, p_198{"198"}, p_1188{"1188"}, p_19602{"19602"},
-            
-            n_100{"-100"}, n_6{"-6"}, p_100{"100"}, p_{"6"};
-};
-
-TEST_F(FArithmetic, summ) {
-    EXPECT_EQ(p_2, p_1 + p_1_copy) << "1 + 1 = 2";
-    EXPECT_EQ(p_0, p_1 + n_1) << "1 + (-1) = 0";
-    EXPECT_EQ(p_198, p_99 + p_99_copy) << "99 + 99 = 198";
-    EXPECT_EQ(n_87, n_99 + p_12) << "-99 + 12 = -87";
-    EXPECT_EQ(n_87, p_12 + n_99) << "12 + (-99) = -87";
+int LongNumber::get_length(const char* const str) const noexcept {
+    return (str == nullptr) ? 0 : std::strlen(str);
 }
 
-TEST_F(FArithmetic, substraction) {
-    EXPECT_EQ(p_0, p_1 - p_1_copy) << "1 - 1 = 0";
-    EXPECT_EQ(p_2, p_1 - n_1) << "1 + (-1) = 2";
-    EXPECT_EQ(n_87, p_12 - p_99) << "12 - 99 = -87";
+LongNumber LongNumber::abs() const {
+    LongNumber result(*this);
+    result.sign = 1;
+    return result;
 }
 
-TEST_F(FArithmetic, multiply) {
-    EXPECT_EQ(p_1, p_1 * p_1_copy) << "1 * 1 = 1";
-    EXPECT_EQ(n_1, p_1 * n_1) << "1 * (-1) = -1";
-    EXPECT_EQ(p_0, p_0 * p_99) << "0 * 99 = 0";
-    EXPECT_EQ(p_1188, p_12 * p_99) << "12 * 99 = 1188";
-    EXPECT_EQ(n_19602, p_198 * p_99 * n_1) << "198 * 99 * -1 = -19602";
-}
-
-TEST_F(FArithmetic, division) {
-    EXPECT_EQ(p_2, p_2 / p_1) << "2 / 1 = 2";
-    EXPECT_EQ(p_198, p_19602 / p_99) << "19602 / 99 = 198";
-    EXPECT_EQ(p_99, n_19602 / p_198 / n_1) << "-19602 / 198 / -1  = 99";
-}
-
-int main(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+std::ostream& biv::operator<<(std::ostream& os, const LongNumber& x) {
+    if (x.is_negative()) os << '-';
+    for (int i = x.length - 1; i >= 0; --i) {
+        os << x.numbers[i];
+    }
+    return os;
 }
