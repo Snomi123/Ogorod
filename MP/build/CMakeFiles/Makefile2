@@ -54,7 +54,7 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/igormajorov/Desktop/Ogorod/MP/projects/dz5.vector_list
+CMAKE_SOURCE_DIR = /Users/igormajorov/Desktop/Ogorod/MP/projects/dz4.long_number
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/igormajorov/Desktop/Ogorod/MP/build
@@ -63,122 +63,126 @@ CMAKE_BINARY_DIR = /Users/igormajorov/Desktop/Ogorod/MP/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/containers.dir/all
-all: CMakeFiles/test_vector.dir/all
-all: CMakeFiles/test_list.dir/all
+all: long_number/all
+all: tests/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/containers.dir/codegen
-codegen: CMakeFiles/test_vector.dir/codegen
-codegen: CMakeFiles/test_list.dir/codegen
+codegen: long_number/codegen
+codegen: tests/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: long_number/preinstall
+preinstall: tests/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/containers.dir/clean
-clean: CMakeFiles/test_vector.dir/clean
-clean: CMakeFiles/test_list.dir/clean
+clean: long_number/clean
+clean: tests/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/containers.dir
+# Directory level rules for directory long_number
+
+# Recursive "all" directory target.
+long_number/all: long_number/CMakeFiles/long_number.dir/all
+.PHONY : long_number/all
+
+# Recursive "codegen" directory target.
+long_number/codegen: long_number/CMakeFiles/long_number.dir/codegen
+.PHONY : long_number/codegen
+
+# Recursive "preinstall" directory target.
+long_number/preinstall:
+.PHONY : long_number/preinstall
+
+# Recursive "clean" directory target.
+long_number/clean: long_number/CMakeFiles/long_number.dir/clean
+.PHONY : long_number/clean
+
+#=============================================================================
+# Directory level rules for directory tests
+
+# Recursive "all" directory target.
+tests/all: tests/CMakeFiles/test_long_number.dir/all
+.PHONY : tests/all
+
+# Recursive "codegen" directory target.
+tests/codegen: tests/CMakeFiles/test_long_number.dir/codegen
+.PHONY : tests/codegen
+
+# Recursive "preinstall" directory target.
+tests/preinstall:
+.PHONY : tests/preinstall
+
+# Recursive "clean" directory target.
+tests/clean: tests/CMakeFiles/test_long_number.dir/clean
+.PHONY : tests/clean
+
+#=============================================================================
+# Target rules for target long_number/CMakeFiles/long_number.dir
 
 # All Build rule for target.
-CMakeFiles/containers.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/containers.dir/build.make CMakeFiles/containers.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/containers.dir/build.make CMakeFiles/containers.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=1,2 "Built target containers"
-.PHONY : CMakeFiles/containers.dir/all
+long_number/CMakeFiles/long_number.dir/all:
+	$(MAKE) $(MAKESILENT) -f long_number/CMakeFiles/long_number.dir/build.make long_number/CMakeFiles/long_number.dir/depend
+	$(MAKE) $(MAKESILENT) -f long_number/CMakeFiles/long_number.dir/build.make long_number/CMakeFiles/long_number.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=1,2 "Built target long_number"
+.PHONY : long_number/CMakeFiles/long_number.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/containers.dir/rule: cmake_check_build_system
+long_number/CMakeFiles/long_number.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/containers.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 long_number/CMakeFiles/long_number.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 0
-.PHONY : CMakeFiles/containers.dir/rule
+.PHONY : long_number/CMakeFiles/long_number.dir/rule
 
 # Convenience name for target.
-containers: CMakeFiles/containers.dir/rule
-.PHONY : containers
+long_number: long_number/CMakeFiles/long_number.dir/rule
+.PHONY : long_number
 
 # codegen rule for target.
-CMakeFiles/containers.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/containers.dir/build.make CMakeFiles/containers.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=1,2 "Finished codegen for target containers"
-.PHONY : CMakeFiles/containers.dir/codegen
+long_number/CMakeFiles/long_number.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f long_number/CMakeFiles/long_number.dir/build.make long_number/CMakeFiles/long_number.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=1,2 "Finished codegen for target long_number"
+.PHONY : long_number/CMakeFiles/long_number.dir/codegen
 
 # clean rule for target.
-CMakeFiles/containers.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/containers.dir/build.make CMakeFiles/containers.dir/clean
-.PHONY : CMakeFiles/containers.dir/clean
+long_number/CMakeFiles/long_number.dir/clean:
+	$(MAKE) $(MAKESILENT) -f long_number/CMakeFiles/long_number.dir/build.make long_number/CMakeFiles/long_number.dir/clean
+.PHONY : long_number/CMakeFiles/long_number.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/test_vector.dir
+# Target rules for target tests/CMakeFiles/test_long_number.dir
 
 # All Build rule for target.
-CMakeFiles/test_vector.dir/all: CMakeFiles/containers.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_vector.dir/build.make CMakeFiles/test_vector.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_vector.dir/build.make CMakeFiles/test_vector.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=5,6 "Built target test_vector"
-.PHONY : CMakeFiles/test_vector.dir/all
+tests/CMakeFiles/test_long_number.dir/all: long_number/CMakeFiles/long_number.dir/all
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/depend
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=3,4 "Built target test_long_number"
+.PHONY : tests/CMakeFiles/test_long_number.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/test_vector.dir/rule: cmake_check_build_system
+tests/CMakeFiles/test_long_number.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_vector.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_long_number.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 0
-.PHONY : CMakeFiles/test_vector.dir/rule
+.PHONY : tests/CMakeFiles/test_long_number.dir/rule
 
 # Convenience name for target.
-test_vector: CMakeFiles/test_vector.dir/rule
-.PHONY : test_vector
+test_long_number: tests/CMakeFiles/test_long_number.dir/rule
+.PHONY : test_long_number
 
 # codegen rule for target.
-CMakeFiles/test_vector.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_vector.dir/build.make CMakeFiles/test_vector.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=5,6 "Finished codegen for target test_vector"
-.PHONY : CMakeFiles/test_vector.dir/codegen
+tests/CMakeFiles/test_long_number.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=3,4 "Finished codegen for target test_long_number"
+.PHONY : tests/CMakeFiles/test_long_number.dir/codegen
 
 # clean rule for target.
-CMakeFiles/test_vector.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_vector.dir/build.make CMakeFiles/test_vector.dir/clean
-.PHONY : CMakeFiles/test_vector.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/test_list.dir
-
-# All Build rule for target.
-CMakeFiles/test_list.dir/all: CMakeFiles/containers.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_list.dir/build.make CMakeFiles/test_list.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_list.dir/build.make CMakeFiles/test_list.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=3,4 "Built target test_list"
-.PHONY : CMakeFiles/test_list.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/test_list.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_list.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 0
-.PHONY : CMakeFiles/test_list.dir/rule
-
-# Convenience name for target.
-test_list: CMakeFiles/test_list.dir/rule
-.PHONY : test_list
-
-# codegen rule for target.
-CMakeFiles/test_list.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_list.dir/build.make CMakeFiles/test_list.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles --progress-num=3,4 "Finished codegen for target test_list"
-.PHONY : CMakeFiles/test_list.dir/codegen
-
-# clean rule for target.
-CMakeFiles/test_list.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_list.dir/build.make CMakeFiles/test_list.dir/clean
-.PHONY : CMakeFiles/test_list.dir/clean
+tests/CMakeFiles/test_long_number.dir/clean:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/clean
+.PHONY : tests/CMakeFiles/test_long_number.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

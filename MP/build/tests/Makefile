@@ -97,14 +97,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles /Users/igormajorov/Desktop/Ogorod/MP/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles /Users/igormajorov/Desktop/Ogorod/MP/build/tests//CMakeFiles/progress.marks
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/clean
 .PHONY : clean
 
 # The main clean target
@@ -113,44 +113,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named long_number
+# Convenience name for target.
+tests/CMakeFiles/test_long_number.dir/rule:
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_long_number.dir/rule
+.PHONY : tests/CMakeFiles/test_long_number.dir/rule
 
-# Build rule for target.
-long_number: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 long_number
-.PHONY : long_number
-
-# fast build rule for target.
-long_number/fast:
-	$(MAKE) $(MAKESILENT) -f long_number/CMakeFiles/long_number.dir/build.make long_number/CMakeFiles/long_number.dir/build
-.PHONY : long_number/fast
-
-#=============================================================================
-# Target rules for targets named test_long_number
-
-# Build rule for target.
-test_long_number: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_long_number
+# Convenience name for target.
+test_long_number: tests/CMakeFiles/test_long_number.dir/rule
 .PHONY : test_long_number
 
 # fast build rule for target.
 test_long_number/fast:
-	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/build
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/build
 .PHONY : test_long_number/fast
+
+test_long_number.o: test_long_number.cpp.o
+.PHONY : test_long_number.o
+
+# target to build an object file
+test_long_number.cpp.o:
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/test_long_number.cpp.o
+.PHONY : test_long_number.cpp.o
+
+test_long_number.i: test_long_number.cpp.i
+.PHONY : test_long_number.i
+
+# target to preprocess a source file
+test_long_number.cpp.i:
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/test_long_number.cpp.i
+.PHONY : test_long_number.cpp.i
+
+test_long_number.s: test_long_number.cpp.s
+.PHONY : test_long_number.s
+
+# target to generate assembly for a file
+test_long_number.cpp.s:
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_long_number.dir/build.make tests/CMakeFiles/test_long_number.dir/test_long_number.cpp.s
+.PHONY : test_long_number.cpp.s
 
 # Help Target
 help:
@@ -161,8 +173,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... long_number"
 	@echo "... test_long_number"
+	@echo "... test_long_number.o"
+	@echo "... test_long_number.i"
+	@echo "... test_long_number.s"
 .PHONY : help
 
 
@@ -174,6 +188,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/igormajorov/Desktop/Ogorod/MP/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

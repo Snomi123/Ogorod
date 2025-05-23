@@ -1,47 +1,64 @@
-Start testing: May 23 20:27 MSK
+Start testing: May 24 01:52 MSK
 ----------------------------------------------------------
-1/2 Testing: test_vector
-1/2 Test: test_vector
-Command: "/Users/igormajorov/Desktop/Ogorod/MP/build/test_vector"
-Directory: /Users/igormajorov/Desktop/Ogorod/MP/build
-"test_vector" start time: May 23 20:27 MSK
+1/1 Testing: long_number_tests
+1/1 Test: long_number_tests
+Command: "/Users/igormajorov/Desktop/Ogorod/MP/build/tests/test_long_number"
+Directory: /Users/igormajorov/Desktop/Ogorod/MP/build/tests
+"long_number_tests" start time: May 24 01:52 MSK
 Output:
 ----------------------------------------------------------
-This test program does NOT link in any test case. Please make sure this is intended.
-[==========] Running 0 tests from 0 test suites.
-[==========] 0 tests from 0 test suites ran. (0 ms total)
-[  PASSED  ] 0 tests.
-<end of output>
-Test time =   0.42 sec
-----------------------------------------------------------
-Test Passed.
-"test_vector" end time: May 23 20:27 MSK
-"test_vector" time elapsed: 00:00:00
-----------------------------------------------------------
-
-2/2 Testing: test_list
-2/2 Test: test_list
-Command: "/Users/igormajorov/Desktop/Ogorod/MP/build/test_list"
-Directory: /Users/igormajorov/Desktop/Ogorod/MP/build
-"test_list" start time: May 23 20:27 MSK
-Output:
-----------------------------------------------------------
-[==========] Running 1 test from 1 test suite.
+[==========] Running 16 tests from 3 test suites.
 [----------] Global test environment set-up.
-[----------] 1 test from ListTest
-[ RUN      ] ListTest.PushBack
-[       OK ] ListTest.PushBack (0 ms)
-[----------] 1 test from ListTest (0 ms total)
+[----------] 8 tests from LongNumberTest
+[ RUN      ] LongNumberTest.ConstructorAndEquality
+[       OK ] LongNumberTest.ConstructorAndEquality (0 ms)
+[ RUN      ] LongNumberTest.DivisionAndModulo
+[       OK ] LongNumberTest.DivisionAndModulo (0 ms)
+[ RUN      ] LongNumberTest.Addition
+[       OK ] LongNumberTest.Addition (0 ms)
+[ RUN      ] LongNumberTest.Subtraction
+[       OK ] LongNumberTest.Subtraction (0 ms)
+[ RUN      ] LongNumberTest.Multiplication
+[       OK ] LongNumberTest.Multiplication (0 ms)
+[ RUN      ] LongNumberTest.Modulo
+[       OK ] LongNumberTest.Modulo (0 ms)
+[ RUN      ] LongNumberTest.EdgeCases
+[       OK ] LongNumberTest.EdgeCases (0 ms)
+[ RUN      ] LongNumberTest.DigitAccess
+[       OK ] LongNumberTest.DigitAccess (0 ms)
+[----------] 8 tests from LongNumberTest (0 ms total)
+
+[----------] 4 tests from FComparisons
+[ RUN      ] FComparisons.equal
+[       OK ] FComparisons.equal (0 ms)
+[ RUN      ] FComparisons.not_equal
+[       OK ] FComparisons.not_equal (0 ms)
+[ RUN      ] FComparisons.more
+[       OK ] FComparisons.more (0 ms)
+[ RUN      ] FComparisons.less
+[       OK ] FComparisons.less (0 ms)
+[----------] 4 tests from FComparisons (0 ms total)
+
+[----------] 4 tests from FArithmetic
+[ RUN      ] FArithmetic.summ
+[       OK ] FArithmetic.summ (0 ms)
+[ RUN      ] FArithmetic.substraction
+[       OK ] FArithmetic.substraction (0 ms)
+[ RUN      ] FArithmetic.multiply
+[       OK ] FArithmetic.multiply (0 ms)
+[ RUN      ] FArithmetic.division
+[       OK ] FArithmetic.division (0 ms)
+[----------] 4 tests from FArithmetic (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (0 ms total)
-[  PASSED  ] 1 test.
+[==========] 16 tests from 3 test suites ran. (0 ms total)
+[  PASSED  ] 16 tests.
 <end of output>
-Test time =   0.16 sec
+Test time =   0.17 sec
 ----------------------------------------------------------
 Test Passed.
-"test_list" end time: May 23 20:27 MSK
-"test_list" time elapsed: 00:00:00
+"long_number_tests" end time: May 24 01:52 MSK
+"long_number_tests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: May 23 20:27 MSK
+End testing: May 24 01:52 MSK

@@ -256,14 +256,16 @@ LongNumber LongNumber::operator*(const LongNumber& x) const {
 
 LongNumber LongNumber::operator/(const LongNumber& x) const {
     if (x == LongNumber("0")) throw std::invalid_argument("Division by zero");
-
-    LongNumber dividend = abs();
+    
+    LongNumber dividend = this->abs();
     LongNumber divisor = x.abs();
+    bool isNegativeResult = (this->sign != x.sign);
+    
     if (dividend < divisor) return LongNumber("0");
-
+    
     LongNumber quotient("0");
     LongNumber current("0");
-
+    
     for (int i = dividend.length - 1; i >= 0; --i) {
         current = current * LongNumber("10") + LongNumber(std::to_string(dividend.numbers[i]).c_str());
         int cnt = 0;
@@ -273,18 +275,36 @@ LongNumber LongNumber::operator/(const LongNumber& x) const {
         }
         quotient = quotient * LongNumber("10") + LongNumber(std::to_string(cnt).c_str());
     }
-
-    quotient.sign = sign * x.sign;
+    
+    // Корректировка частного при отрицательном результате и наличии остатка
+    if (isNegativeResult && current != LongNumber("0")) {
+        quotient = quotient + LongNumber("1");
+    }
+    
+    quotient.sign = isNegativeResult ? -1 : 1;
+    
+    // Удаление ведущих нулей
     while (quotient.length > 1 && quotient.numbers[quotient.length - 1] == 0) {
         quotient.length--;
     }
+    
     return quotient;
 }
 
 LongNumber LongNumber::operator%(const LongNumber& x) const {
     LongNumber quotient = *this / x;
     LongNumber remainder = *this - (quotient * x);
-    if (remainder != LongNumber("0")) remainder.sign = sign;
+    
+    // Корректировка остатка
+    if (remainder.is_negative()) {
+        remainder = remainder + x.abs();
+    }
+    
+    // Дополнительная проверка для отрицательных делителей
+    if (remainder != LongNumber("0") && x.is_negative()) {
+        remainder = x.abs() - remainder;
+    }
+    
     return remainder;
 }
 

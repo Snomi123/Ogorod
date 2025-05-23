@@ -10,7 +10,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.31.6/CMakeCCompiler.cmake"
   "CMakeFiles/3.31.6/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.31.6/CMakeSystem.cmake"
-  "/Users/igormajorov/Desktop/Ogorod/MP/projects/dz5.vector_list/CMakeLists.txt"
+  "/Users/igormajorov/Desktop/Ogorod/MP/projects/dz4.long_number/CMakeLists.txt"
+  "/Users/igormajorov/Desktop/Ogorod/MP/projects/dz4.long_number/long_number/CMakeLists.txt"
+  "/Users/igormajorov/Desktop/Ogorod/MP/projects/dz4.long_number/tests/CMakeLists.txt"
   "/opt/homebrew/lib/cmake/GTest/GTestConfig.cmake"
   "/opt/homebrew/lib/cmake/GTest/GTestConfigVersion.cmake"
   "/opt/homebrew/lib/cmake/GTest/GTestTargets-release.cmake"
@@ -146,11 +148,12 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.31.6/CMakeCCompiler.cmake"
   "CMakeFiles/3.31.6/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "long_number/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "tests/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/containers.dir/DependInfo.cmake"
-  "CMakeFiles/test_vector.dir/DependInfo.cmake"
-  "CMakeFiles/test_list.dir/DependInfo.cmake"
+  "long_number/CMakeFiles/long_number.dir/DependInfo.cmake"
+  "tests/CMakeFiles/test_long_number.dir/DependInfo.cmake"
   )
