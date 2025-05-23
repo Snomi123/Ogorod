@@ -1,0 +1,6 @@
+/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles/containers.dir
+/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles/test_vector.dir
+/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles/test_list.dir
+/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles/test.dir
+/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles/edit_cache.dir
+/Users/igormajorov/Desktop/Ogorod/MP/build/CMakeFiles/rebuild_cache.dir

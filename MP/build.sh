@@ -1,15 +1,15 @@
 #!/bin/bash
 
-BUILD_TYPE=Ninja
-BUILD_SUFFIX=ninja
-BUILD_FOLDER=build_$BUILD_SUFFIX
-SOURCE_FOLDER=projects/dz4.long_number  
+BUILD_DIR="build"
+PROJECT_DIR="projects/dz5.vector_list"
 
-mkdir -p "$BUILD_FOLDER"
-cd "$BUILD_FOLDER"
+rm -rf $BUILD_DIR
 
-cmake -G "$BUILD_TYPE" ../"$SOURCE_FOLDER"
+mkdir -p $BUILD_DIR
+cd $BUILD_DIR
 
-cmake --build .
+cmake ../$PROJECT_DIR -DCMAKE_BUILD_TYPE=Debug
+
+cmake --build . -- -j$(sysctl -n hw.ncpu)
 
 ctest --output-on-failure

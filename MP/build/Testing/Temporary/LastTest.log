@@ -1,0 +1,47 @@
+Start testing: May 23 20:27 MSK
+----------------------------------------------------------
+1/2 Testing: test_vector
+1/2 Test: test_vector
+Command: "/Users/igormajorov/Desktop/Ogorod/MP/build/test_vector"
+Directory: /Users/igormajorov/Desktop/Ogorod/MP/build
+"test_vector" start time: May 23 20:27 MSK
+Output:
+----------------------------------------------------------
+This test program does NOT link in any test case. Please make sure this is intended.
+[==========] Running 0 tests from 0 test suites.
+[==========] 0 tests from 0 test suites ran. (0 ms total)
+[  PASSED  ] 0 tests.
+<end of output>
+Test time =   0.42 sec
+----------------------------------------------------------
+Test Passed.
+"test_vector" end time: May 23 20:27 MSK
+"test_vector" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: test_list
+2/2 Test: test_list
+Command: "/Users/igormajorov/Desktop/Ogorod/MP/build/test_list"
+Directory: /Users/igormajorov/Desktop/Ogorod/MP/build
+"test_list" start time: May 23 20:27 MSK
+Output:
+----------------------------------------------------------
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ListTest
+[ RUN      ] ListTest.PushBack
+[       OK ] ListTest.PushBack (0 ms)
+[----------] 1 test from ListTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"test_list" end time: May 23 20:27 MSK
+"test_list" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 23 20:27 MSK
