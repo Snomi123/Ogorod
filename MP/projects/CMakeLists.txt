@@ -7,3 +7,5 @@ add_subdirectory(lib/googletest)
 
 add_subdirectory(dz2.sort)
 add_subdirectory(dz3.Obuchalkaa)
+add_subdirectory(long_number)
+add_subdirectory(tests)
