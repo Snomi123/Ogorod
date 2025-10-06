@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <math.h>
+#include <curses.h>
 
 #define mapWidth 80
 #define mapHeight 25
@@ -35,6 +36,7 @@ void SetObjectPos(TObject *obj, float xPos, float yPos){
     (*obj).y = yPos;
 }
 
+
 void InitObject(TObject, *obj, float xPos, float yPos, float oWidth, float oHeigth){
     SetObjectPos(obj, xPos, yPos);
     (*obj).width = oWidth;
@@ -42,7 +44,7 @@ void InitObject(TObject, *obj, float xPos, float yPos, float oWidth, float oHeig
     
 }
 
-void PutObjectPos(TObject *obj){
+void PutObjectPos(TObject obj){
     int ix = (int)round(obj.x);
     int iy = (int)round(obj.x);
     int iWidth = (int)round(obj.width);
@@ -53,7 +55,14 @@ void PutObjectPos(TObject *obj){
             map[j][i] = '@';
 }
 
+void PutObjectOnMap(TObject obj){
+    int ix = (int)round(obj.x);
+    int iy = (int)round(obj.y);
+    map[iy][ix] = '@';
+}
+
 int main(){
+    hide_cursor();
     
     InitObject(&mario, 39, 10, 3, 3);
     ClearMap();
