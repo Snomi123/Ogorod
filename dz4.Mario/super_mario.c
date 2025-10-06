@@ -15,6 +15,7 @@ typedef struct SObject {
 
 char map[mapHeight][mapWidth + 1];
 TObject mario;
+TObject brick[1];
 
 void ClearMap() {
     for (int i = 0; i < mapWidth; i++)
@@ -49,6 +50,10 @@ void VertMoveObject(TObject *obj){
     SetObjectPos(obj, obj->x, obj->y + obj->vertSpeed);
 }
 
+bool IsPosInMap(int x, int y){
+    return ((x>=0) && (x<mapWidth) && (y>=0) && (y<mapHeight));
+}
+
 void PutObjectOnMap(TObject obj) {
     int ix = (int)round(obj.x);
     int iy = (int)round(obj.y);
@@ -58,7 +63,8 @@ void PutObjectOnMap(TObject obj) {
     for (int i = ix; i < (ix + iWidth); i++) {
         for (int j = iy; j < (iy + iHeight); j++) {
             if (i >= 0 && i < mapWidth && j >= 0 && j < mapHeight) {
-                map[j][i] = '@';
+                if (IsPosInMap(i,j))
+                    map[j][i] = '@';
             }
         }
     }
@@ -72,6 +78,7 @@ int main() {
     timeout(0);
     
     InitObject(&mario, 39, 10, 3, 3);
+    InitObject(brick, 20, 20, 40, 5);
     
     int running = 1;
     while (running) {
@@ -80,7 +87,6 @@ int main() {
             running = 0;
         }
         
-        // Управление
         if (ch == KEY_LEFT) mario.x -= 1.5;
         if (ch == KEY_RIGHT) mario.x += 1.5;
         if (ch == KEY_UP) {
@@ -104,9 +110,10 @@ int main() {
         
         ClearMap();
         PutObjectOnMap(mario);
+        PutObjectOnMap(brick[0]);
         ShowMap();
         
-        napms(50);  
+        napms(50);
     }
     
     move(0, 0);
