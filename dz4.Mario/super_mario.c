@@ -89,6 +89,9 @@ int main() {
         napms(50);
     }
     
+    move(0, 0);
+    refresh();
+    
     endwin();
     return 0;
 }
