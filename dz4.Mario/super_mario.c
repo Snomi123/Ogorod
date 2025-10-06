@@ -3,6 +3,7 @@
 #include <math.h>
 #include <ncurses.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #define mapWidth 80
 #define mapHeight 25
@@ -11,6 +12,7 @@ typedef struct SObject {
     float x, y;
     float width, height;
     float vertSpeed;
+    bool IsFly;
 } TObject;
 
 char map[mapHeight][mapWidth + 1];
@@ -48,11 +50,13 @@ void InitObject(TObject *obj, float xPos, float yPos, float oWidth, float oHeigh
 bool IsCollision(TObject o1, TObject o2);
 
 void VertMoveObject(TObject *obj){
+    obj->IsFly = true;
     obj->vertSpeed += 0.05;
     SetObjectPos(obj, obj->x, obj->y + obj->vertSpeed);
     if (IsCollision(*obj, brick[0])){
-        (*obj).y -= (*obj).vertSpeed;
-        (*obj).vertSpeed = 0;
+        obj->y -= obj->vertSpeed;
+        obj->vertSpeed = 0;
+        obj->IsFly = false;
     }
 }
 
@@ -73,10 +77,8 @@ void PutObjectOnMap(TObject obj) {
     
     for (int i = ix; i < (ix + iWidth); i++) {
         for (int j = iy; j < (iy + iHeight); j++) {
-            if (i >= 0 && i < mapWidth && j >= 0 && j < mapHeight) {
-                if (IsPosInMap(i,j))
-                    map[j][i] = '@';
-            }
+            if (IsPosInMap(i,j))
+                map[j][i] = '@';
         }
     }
 }
@@ -103,6 +105,7 @@ int main() {
         if (ch == KEY_UP) {
             mario.vertSpeed = -1.0;
         }
+        if ((mario.IsFly == false) && (ch == ' ')) mario.vertSpeed = -1.0;
         
         VertMoveObject(&mario);
         
