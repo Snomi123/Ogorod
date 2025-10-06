@@ -64,6 +64,10 @@ bool IsPosInMap(int x, int y){
     return ((x>=0) && (x<mapWidth) && (y>=0) && (y<mapHeight));
 }
 
+void HorizonMoveMap(float dx){
+    brick[0].x += dx;
+}
+
 bool IsCollision(TObject o1, TObject o2){
     return ((o1.x + o1.width)>o2.x) && (o1.x < (o2.x + o2.width)) &&
             ((o1.y + o1.height)>o2.y)&& (o1.y < (o2.y + o2.height));
@@ -100,12 +104,14 @@ int main() {
             running = 0;
         }
         
-        if (ch == KEY_LEFT) mario.x -= 1.5;
-        if (ch == KEY_RIGHT) mario.x += 1.5;
+        if (ch == KEY_LEFT) mario.x -= 1;
+        if (ch == KEY_RIGHT) mario.x += 1;
         if (ch == KEY_UP) {
             mario.vertSpeed = -1.0;
         }
         if ((mario.IsFly == false) && (ch == ' ')) mario.vertSpeed = -1.0;
+        if (ch == KEY_LEFT) HorizonMoveMap(1);
+        if (ch == KEY_RIGHT) HorizonMoveMap(-1);
         
         VertMoveObject(&mario);
         
