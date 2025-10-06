@@ -81,6 +81,13 @@ bool IsPosInMap(int x, int y){
 }
 
 void HorizonMoveMap(float dx){
+    mario.x -= dx;
+    for (int i = 0; i < brickLength; i++)
+        if (IsCollision(mario, brick[i])){
+            mario.x += dx;
+            return;
+        }
+    mario.x +=dx;
     for (int i = 0; i < brickLength; i++)
         brick[i].x += dx;
 }
@@ -120,9 +127,10 @@ int main() {
             running = 0;
         }
         
-        if (ch == KEY_LEFT) HorizonMoveMap(1);
-        if (ch == KEY_RIGHT) HorizonMoveMap(-1);
+        if (ch == KEY_LEFT) HorizonMoveMap(2);
+        if (ch == KEY_RIGHT) HorizonMoveMap(-2);
         if (ch == KEY_UP && !mario.IsFly) mario.vertSpeed = -1.0;
+        if (mario.y > mapHeight) CreateLevel();
         
         VertMoveObject(&mario);
         
