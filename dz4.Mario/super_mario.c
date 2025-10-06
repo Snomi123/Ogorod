@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <ncurses.h>
+#include <unistd.h>
 
 #define mapWidth 80
 #define mapHeight 25
@@ -9,6 +10,7 @@
 typedef struct SObject {
     float x, y;
     float width, height;
+    float vertSpeed;
 } TObject;
 
 char map[mapHeight][mapWidth + 1];
@@ -39,6 +41,12 @@ void InitObject(TObject *obj, float xPos, float yPos, float oWidth, float oHeigh
     SetObjectPos(obj, xPos, yPos);
     obj->width = oWidth;
     obj->height = oHeight;
+    obj->vertSpeed = 0;
+}
+
+void VertMoveObject(TObject *obj){
+    obj->vertSpeed += 0.05;
+    SetObjectPos(obj, obj->x, obj->y + obj->vertSpeed);
 }
 
 void PutObjectOnMap(TObject obj) {
@@ -72,21 +80,33 @@ int main() {
             running = 0;
         }
         
-        if (ch == KEY_LEFT) mario.x--;
-        if (ch == KEY_RIGHT) mario.x++;
-        if (ch == KEY_UP) mario.y--;
-        if (ch == KEY_DOWN) mario.y++;
+        // Управление
+        if (ch == KEY_LEFT) mario.x -= 1.5;
+        if (ch == KEY_RIGHT) mario.x += 1.5;
+        if (ch == KEY_UP) {
+            mario.vertSpeed = -1.0;
+        }
+        
+        VertMoveObject(&mario);
         
         if (mario.x < 0) mario.x = 0;
-        if (mario.y < 0) mario.y = 0;
         if (mario.x > mapWidth - mario.width) mario.x = mapWidth - mario.width;
-        if (mario.y > mapHeight - mario.height) mario.y = mapHeight - mario.height;
+        
+        if (mario.y > mapHeight - mario.height) {
+            mario.y = mapHeight - mario.height;
+            mario.vertSpeed = 0;
+        }
+
+        if (mario.y < 0) {
+            mario.y = 0;
+            mario.vertSpeed = 0.1;
+        }
         
         ClearMap();
         PutObjectOnMap(mario);
         ShowMap();
         
-        napms(50);
+        napms(50);  
     }
     
     move(0, 0);
