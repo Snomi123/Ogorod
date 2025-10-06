@@ -20,6 +20,7 @@ char map[mapHeight][mapWidth + 1];
 TObject mario;
 TObject *brick = NULL;
 int brickLength;
+int level = 1;
 
 void ClearMap() {
     for (int i = 0; i < mapWidth; i++)
@@ -51,17 +52,29 @@ void InitObject(TObject *obj, float xPos, float yPos, float oWidth, float oHeigh
 }
 
 bool IsCollision(TObject o1, TObject o2);
+void CreateLevel(int lvl);
 
-void CreateLevel(){
+void CreateLevel(int lvl){
     InitObject(&mario, 39, 10, 3, 3, '@');
     
-    brickLength = 5;
-    brick = realloc(brick, sizeof(*brick) * brickLength);
-    InitObject(&brick[0], 20, 20, 40, 5, '#');
-    InitObject(&brick[1], 60, 15, 10, 10, '#');
-    InitObject(&brick[2], 80, 20, 20, 5, '#');
-    InitObject(&brick[3], 120, 15, 10, 10, '#');
-    InitObject(&brick[4], 150, 20, 40, 5, '#');
+    if (lvl == 1){
+        brickLength = 6;
+        brick = realloc(brick, sizeof(*brick) * brickLength);
+        InitObject(&brick[0], 20, 20, 40, 5, '#');
+        InitObject(&brick[1], 60, 15, 10, 10, '#');
+        InitObject(&brick[2], 80, 20, 20, 5, '#');
+        InitObject(&brick[3], 120, 15, 10, 10, '#');
+        InitObject(&brick[4], 150, 20, 40, 5, '#');
+        InitObject(&brick[5], 210, 15, 10, 10, '+');
+    }
+    if (lvl == 2){
+        brickLength = 4;
+        brick = realloc(brick, sizeof(*brick) * brickLength);
+        InitObject(&brick[0], 20, 20, 40, 5, '#');
+        InitObject(&brick[1], 80, 20, 15, 5, '#');
+        InitObject(&brick[2], 120, 15, 15, 10, '#');
+        InitObject(&brick[3], 160, 10, 15, 15, '+');
+    }
 }
 
 void VertMoveObject(TObject *obj){
@@ -74,6 +87,12 @@ void VertMoveObject(TObject *obj){
             obj->y -= obj->vertSpeed;
             obj->vertSpeed = 0;
             obj->IsFly = false;
+            if (brick[i].cType == '+'){
+                level++;
+                if (level > 2) level = 1;
+                CreateLevel(level);
+                napms(1000);
+            }
             break;
         }
 }
@@ -120,8 +139,8 @@ int main() {
     curs_set(0);
     timeout(0);
     
-    CreateLevel();
-    
+    CreateLevel(level);
+
     int running = 1;
     while (running) {
         int ch = getch();
@@ -132,7 +151,7 @@ int main() {
         if (ch == KEY_LEFT) HorizonMoveMap(2);
         if (ch == KEY_RIGHT) HorizonMoveMap(-2);
         if (ch == KEY_UP && !mario.IsFly) mario.vertSpeed = -1.0;
-        if (mario.y > mapHeight) CreateLevel();
+        if (mario.y > mapHeight) CreateLevel(level);
         
         VertMoveObject(&mario);
         
